@@ -1,7 +1,14 @@
+import bodyParser from "body-parser";
 import express from "express";
+import loginRoute from "./routes/login";
+
 
 
 const app = express();
+
+
+app.use(bodyParser.json({ type: "*/*" }));
+
 
 
 app.get("/",(req,res)=>{
@@ -10,10 +17,9 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/login",(req,res)=>{
+/// All Route 
 
-    res.send("This is the login page");
-})
+app.use(loginRoute);
 
 
 const PORT = 8081;
