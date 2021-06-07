@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 
 
 
-export default class LoginValidation {
+export default class AuthValidation {
 
 
 
@@ -23,6 +23,18 @@ export default class LoginValidation {
         next();
     }
 
+    static register(req: Request, res: Response, next: NextFunction){
+        
+        const {name, email, pwd } = req.body
+
+        if (typeof name !== "string") throw "Name must be a string"
+
+        if (typeof email !== "string") throw "Email must be a string"
+
+        if (typeof pwd !== "string") throw "Password must be a string"
+
+        next();
+    }
 
 
 

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "clear ;ts-node src/app.ts ",
+    "serve": "nodemon build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
