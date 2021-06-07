@@ -11,10 +11,10 @@ export default class Auth {
 
     constructor() {
 
-       const user1 = new User("Sarah", "sarah@yahoo.com", "12345");
-       const user2 = new User("Paul", "paul@outlook.com", "password");
+    //    const user1 = new User("Sarah", "sarah@yahoo.com", "12345");
+    //    const user2 = new User("Paul", "paul@outlook.com", "password");
 
-       this.users = [user1, user2]
+       this.users = [];
     }
 
     
@@ -36,6 +36,14 @@ export default class Auth {
         const userData = new User(name, email, pwd);
 
         this.users.push(userData)
+
+        return {
+            name : userData.name,
+
+            email : userData.email,
+
+            pwd : userData.pwd
+        }
    
 
         }

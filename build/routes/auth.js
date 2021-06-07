@@ -8,9 +8,7 @@ var auth_1 = __importDefault(require("../validation/auth"));
 var auth_2 = __importDefault(require("../controller/auth"));
 var route = express_1.Router();
 route.post("/login", auth_1.default.login, auth_2.default.login);
-route.post("/register", function (req, res) {
-    res.send("This is the register page");
-});
+route.post("/register", auth_1.default.register, auth_2.default.register);
 route.post("/password/reset", function (req, res) {
     res.send("This is the password reset page");
 });

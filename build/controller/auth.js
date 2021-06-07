@@ -16,6 +16,12 @@ var AuthController = /** @class */ (function () {
         var result = auth.login(email, pwd);
         res.send({ message: result });
     };
+    AuthController.register = function (req, res) {
+        var _a = req.body, name = _a.name, email = _a.email, pwd = _a.pwd;
+        var auth = new auth_1.default();
+        var result = auth.register(name, email, pwd);
+        res.send({ message: result });
+    };
     return AuthController;
 }());
 exports.default = AuthController;

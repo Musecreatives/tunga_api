@@ -1,5 +1,4 @@
 "use strict";
-//  import Users from "./user";
 Object.defineProperty(exports, "__esModule", { value: true });
 var User = /** @class */ (function () {
     function User(name, email, password) {
@@ -8,13 +7,18 @@ var User = /** @class */ (function () {
         this.pwd = "";
         this._isVerified = false;
         this._lastLogin = "";
+        this._isEmailVerified = false;
         this.users = [];
         this.name = name;
         this.email = email;
         this.pwd = password;
         this._isVerified = false;
         this._lastLogin = new Date().toDateString();
+        this._isEmailVerified = false;
     }
+    User.prototype.verifyEmail = function () {
+        return (this._isVerified = true);
+    };
     Object.defineProperty(User.prototype, "isVerified", {
         get: function () {
             return this._isVerified;

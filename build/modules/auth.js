@@ -5,11 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("./user"));
 var Auth = /** @class */ (function () {
+    // new_users: Array<Register> =<>
     function Auth() {
+        //    const user1 = new User("Sarah", "sarah@yahoo.com", "12345");
+        //    const user2 = new User("Paul", "paul@outlook.com", "password");
         this.users = [];
-        var user1 = new user_1.default("Sarah", "sarah@yahoo.com", "12345");
-        var user2 = new user_1.default("Paul", "paul@outlook.com", "password");
-        this.users = [user1, user2];
+        this.users = [];
     }
     Auth.prototype.login = function (email, pwd) {
         var user = this.users.find(function (e) {
@@ -20,6 +21,15 @@ var Auth = /** @class */ (function () {
             throw new Error("invalid email or password");
         user.lastLogin = new Date().toDateString();
         return user.name + " Welcome Back!!";
+    };
+    Auth.prototype.register = function (name, email, pwd) {
+        var userData = new user_1.default(name, email, pwd);
+        this.users.push(userData);
+        return {
+            name: userData.name,
+            email: userData.email,
+            pwd: userData.pwd
+        };
     };
     return Auth;
 }());
