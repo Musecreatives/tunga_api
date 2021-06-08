@@ -9,6 +9,7 @@ var auth_2 = __importDefault(require("../validation/auth"));
 var route = express_1.Router();
 route.get("/user", auth_1.default.get_user_by_email);
 route.get("/users", auth_1.default.list_of_users);
+route.patch("/verify", auth_1.default.set_user_by_verifiedEmail);
 route.post("/login", auth_2.default.login, auth_1.default.login);
 route.post("/register", auth_2.default.register, auth_1.default.register);
 exports.default = route;

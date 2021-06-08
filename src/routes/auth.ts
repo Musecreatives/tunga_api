@@ -7,6 +7,8 @@ const route = Router();
 route.get("/user", AuthController.get_user_by_email);
 
 route.get("/users", AuthController.list_of_users);
+ 
+route.patch("/verify", AuthController.set_user_by_verifiedEmail);
 
 
 route.post("/login", AuthValidation.login, AuthController.login);

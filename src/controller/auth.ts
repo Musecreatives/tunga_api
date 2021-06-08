@@ -46,9 +46,11 @@ class AuthController {
 
     static set_user_by_verifiedEmail(req: Request, res: Response){
 
-        const {email} = req.query;
+        const {email, isVerified} = req.body;
 
-        const verify = auth.isVerified(email as string)
+        const verify = auth.setIsVerified(email as string, isVerified);
+
+        return verify;
     }
 
 }

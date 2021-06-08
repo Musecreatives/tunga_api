@@ -28,8 +28,9 @@ var AuthController = /** @class */ (function () {
         res.send(user);
     };
     AuthController.set_user_by_verifiedEmail = function (req, res) {
-        var email = req.query.email;
-        var verify = auth.isVerified(email);
+        var _a = req.body, email = _a.email, isVerified = _a.isVerified;
+        var verify = auth.setIsVerified(email, isVerified);
+        return verify;
     };
     return AuthController;
 }());
