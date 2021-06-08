@@ -7,17 +7,14 @@ var User = /** @class */ (function () {
         this.pwd = "";
         this._isVerified = false;
         this._lastLogin = "";
-        this._isEmailVerified = false;
-        this.users = [];
         this.name = name;
         this.email = email;
         this.pwd = password;
         this._isVerified = false;
         this._lastLogin = new Date().toDateString();
-        this._isEmailVerified = false;
     }
-    User.prototype.verifyEmail = function () {
-        return (this._isVerified = true);
+    User.prototype.toLowerCase = function () {
+        throw new Error("Method not implemented.");
     };
     Object.defineProperty(User.prototype, "isVerified", {
         get: function () {
@@ -35,6 +32,19 @@ var User = /** @class */ (function () {
         },
         set: function (date) {
             this._lastLogin = date;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "toJson", {
+        get: function () {
+            return {
+                name: this.name,
+                email: this.email,
+                password: "******",
+                isVerified: this.isVerified,
+                lastLogin: this.lastLogin
+            };
         },
         enumerable: false,
         configurable: true

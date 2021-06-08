@@ -6,6 +6,8 @@ export default class Auth {
 
 
     users: Array<User> = []
+    verify: any;
+    isVerified: any;
 
     constructor() {
 
@@ -59,13 +61,17 @@ export default class Auth {
         return user.toJson;
     }
 
-    setIsVerified(email: string, isVerified: boolean){
+    setIsVerified(email: string,  isVerified: boolean){
 
-        const user = this.users.find((user) => user.email.toLowerCase() === email.toLowerCase() this.users.isVerified.toLowerCae() === isVerified);
+        const verify = this.users.find((verify) => verify.email.toLowerCase() === email.toLowerCase());
 
-        if (!user) throw "No matching user found";
+        if (!verify) throw "User not verified";
 
-        return user.toJson;
+        if(isVerified !== true && isVerified !== false) throw "isVerified is neither true nor false"
+       
+        verify.isVerified = Boolean(isVerified)
+
+        return verify.toJson;
 
     }
 

@@ -4,6 +4,9 @@
 
 
 export default class User {
+    toLowerCase() {
+        throw new Error("Method not implemented.");
+    }
 
     name = "";
     email = "";
@@ -41,8 +44,8 @@ export default class User {
         return {
             name: this.name,
             email: this.email,
-            password: "****",
-            isVerified: this.isVerified === true ? "Yes" : "No",
+            password: "******",
+            isVerified: this.isVerified, 
             lastLogin: this.lastLogin
         }
     }
