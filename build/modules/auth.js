@@ -12,6 +12,9 @@ var Auth = /** @class */ (function () {
         this.users = [];
         this.users = [];
     }
+    Auth.listOfUsers = function () {
+        throw new Error("Method not implemented.");
+    };
     Auth.prototype.login = function (email, pwd) {
         var user = this.users.find(function (e) {
             var isMatch = e.email === email && e.pwd === pwd;
@@ -28,8 +31,14 @@ var Auth = /** @class */ (function () {
         return {
             name: userData.name,
             email: userData.email,
-            pwd: userData.pwd
+            pwd: "*******"
         };
+    };
+    Auth.prototype.listOfUser = function () {
+        return this.users.map(function (user) { return user.toJson; });
+    };
+    Auth.prototype.getUserByEmail = function (email) {
+        var user = this.users.find((this.users));
     };
     return Auth;
 }());

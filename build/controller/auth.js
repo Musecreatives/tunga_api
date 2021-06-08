@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var auth_1 = __importDefault(require("../modules/auth"));
+var auth = new auth_1.default();
 var AuthController = /** @class */ (function () {
     function AuthController() {
     }
@@ -20,7 +21,15 @@ var AuthController = /** @class */ (function () {
         var _a = req.body, name = _a.name, email = _a.email, pwd = _a.pwd;
         var auth = new auth_1.default();
         var result = auth.register(name, email, pwd);
-        res.send({ message: result });
+        res.send({ message: "Account created successfully", data: result });
+    };
+    AuthController.list_of_users = function (req, res) {
+        var list = auth.listOfUser();
+        res.send(list);
+    };
+    AuthController.get_user_by_email = function (req, res) {
+        var email = req.query.email;
+        var user = auth.getUserByEmail(email || );
     };
     return AuthController;
 }());
