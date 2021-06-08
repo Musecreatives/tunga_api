@@ -16,7 +16,7 @@ var AuthController = /** @class */ (function () {
     AuthController.register = function (request, response) {
         var _a = request.body, email = _a.email, password = _a.password, name = _a.name;
         var newUser = auth.register(name, email, password);
-        response.send({ message: "Account Successfully Updated", data: newUser });
+        response.send({ message: "Account Successfully created", data: newUser });
     };
     AuthController.list_of_users = function (req, res) {
         var list = auth.listOfUser();
@@ -30,7 +30,7 @@ var AuthController = /** @class */ (function () {
     AuthController.set_user_by_verifiedEmail = function (req, res) {
         var _a = req.body, email = _a.email, isVerified = _a.isVerified;
         var verify = auth.setIsVerified(email, isVerified);
-        return verify;
+        res.send({ message: "Account Successfully updated", data: verify });
     };
     return AuthController;
 }());

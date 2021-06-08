@@ -67,9 +67,9 @@ export default class Auth {
 
         if (!verify) throw "User not verified";
 
-        if(isVerified !== true && isVerified !== false) throw "isVerified is neither true nor false"
+        if(isVerified !== true && isVerified !== false) throw "isVerified is neither true nor false";
        
-        verify.isVerified = Boolean(isVerified)
+        verify.isVerified = Boolean(isVerified);
 
         return verify.toJson;
 

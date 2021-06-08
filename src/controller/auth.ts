@@ -25,7 +25,7 @@ class AuthController {
 
         const newUser = auth.register(name, email, password);
 
-        response.send({ message: "Account Successfully Updated", data: newUser })
+        response.send({ message: "Account Successfully created", data: newUser })
     }
 
     static list_of_users(req: Request, res: Response) {
@@ -50,7 +50,7 @@ class AuthController {
 
         const verify = auth.setIsVerified(email as string, isVerified);
 
-        return verify;
+        res.send({message: "Account Successfully updated", data:verify});
     }
 
 }
