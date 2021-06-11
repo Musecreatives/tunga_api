@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import morgan from "morgan";
-
+import route from "./routes/index";
 const app = express();
 
 
@@ -12,7 +12,10 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     res.status(201).send({ message: "Welcome To Our API", status: true });
-})
+});
+
+
+app.use(route);
 
 const PORT = 8081;
 
