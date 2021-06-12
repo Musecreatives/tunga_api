@@ -1,0 +1,28 @@
+[{
+    "key": "jointtask",
+    "data": {
+        "firstName": "Joint",
+        "lastName": "Task",
+        "username": "jointtask",
+        "email": "jointtask.ng@gmail.com",
+        "password": ""
+    }
+}, {
+    "key": "davwin",
+    "data": {
+        "firstName": "David",
+        "lastName": "Godwin",
+        "username": "davwin",
+        "email": "david_godwin12@gmail.com",
+        "password": ""
+    }
+}, {
+    "key": "gbenga_tovia",
+    "data": {
+        "firstName": "Gbenga",
+        "lastName": "Tovia",
+        "username": "gbenga_tovia",
+        "email": "gbenga_tovia@gmail.com",
+        "password": "DNJdsnJBdsbfjsbf"
+    }
+}]

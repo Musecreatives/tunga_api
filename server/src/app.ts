@@ -1,9 +1,13 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import route from "./routes/index";
+
+
 const app = express();
 
+app.use(cors())
 
 app.use(morgan("dev"));
 

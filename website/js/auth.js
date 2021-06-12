@@ -17,28 +17,38 @@ class Auth {
   }
 
   async login(username, password) {
-    console.log(username, password);
 
     const url = "http://127.0.0.1:8081/user/login";
 
-    const payload = {   username,   password   };
+    const payload = JSON.stringify({ username, password });
 
-    const result = await fetch(url,   {   method:   "POST", body:   payload   }).then(
-      
-      
-      (e)   =>   e.json()
-    
-    
-    );
+    const headers = { "Content-Type": "application/json" };
 
-      console.log(result);;;
+    const result = await fetch(url, {
+      method: "POST",
+      body: payload,
+      headers,
+    }).then((e) => e.json());
+
+    console.log(result);
   }
 
-  register(firstName, lastName, username, email, password) {
-    console.log(firstName, lastName, username, email, password);
-    if (firstName && lastName && username && email && password) {
-      this.loginSuccessful();
-    }
+  async register(firstName, lastName, username, email, password) {
+
+
+    const url = "http://127.0.0.1:8081/user/register";
+
+    const payload = JSON.stringify({ firstName, lastName, username, email, password });
+
+    const headers = { "Content-Type": "application/json" };
+
+    const result = await fetch(url, {
+      method: "POST",
+      body: payload,
+      headers,
+    }).then((e) => e.json());
+
+    console.log(result);
   }
 
   loginSuccessful() {

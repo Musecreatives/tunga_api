@@ -12,6 +12,8 @@ export default class UserValidator {
 
         const { username, password }: { username: string, password: string } = req.body;
 
+        console.log(req.body)
+
         if (!username) throw "username is required"
 
         if (!password) throw "password is required"

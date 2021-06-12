@@ -1,3 +1,7 @@
+import Database from "./database";
+
+const userDb = new Database("user");
+
 
 
 export default class User {
@@ -12,6 +16,7 @@ export default class User {
 
 
 
+
     constructor(firstName: string, lastName: string, username: string, email: string, password: string) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,12 +27,20 @@ export default class User {
         this.lastLogin = new Date().toDateString();
     }
 
-    login() {
-        console.log(this.toJson);
+    get(username: string) {
+        return userDb.read(username);
     }
 
-    register() {
-        console.log(this.toJson);
+    login() {
+        const user = this.get(this.username);
+
+        if (user.password !== this.password) throw "password is incorrect";
+
+        return User.fromJson(user).toJson();
+    }
+
+    async register() {
+        await userDb.create(this.username, this.toJson());
     }
 
 
@@ -49,6 +62,7 @@ export default class User {
 
         user.firstName = json['firstName'];
         user.lastName = json['lastName'];
+        user.password = json['password'];
         user.username = String(json['username']).toLowerCase();
         user.email = String(json['email']).toLowerCase();
         user.isEmailVerified = json['isEmailVerified'];
