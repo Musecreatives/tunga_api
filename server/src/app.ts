@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
-import { CustomError } from "./middleware/error_handler";
+import { CustomError, NotFound } from "./middleware/error_handler";
 import route from "./routes/index";
 
 
@@ -23,11 +23,21 @@ app.get("/", (req: Request, res: Response) => {
 app.use(route);
 
 
+app.use((req, res, next) => {
+    next(new NotFound("target endpoint not found"));
+})
+
+
 // Error Handles
 app.use((err: CustomError, req: Request, res: Response, next: NextFunction) => {
-    console.log(err.toJson)
+    console.log("IN_APP ERROR", err.msg);
     return res.status(err.code).send(err);
 });
+
+
+
+
+
 
 const PORT = 8081;
 

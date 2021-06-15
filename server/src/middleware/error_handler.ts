@@ -1,16 +1,15 @@
 
 export class CustomError extends Error {
 
-    message: string;
+    msg: string;
     code: number;
     status: boolean;
     data?: any;
 
-    constructor(message: string, code: number, status: boolean, data?: any) {
+    constructor(msg: string, code: number, status: boolean, data?: any) {
 
-        super(message);
-
-        this.message = message;
+        super(msg);
+        this.msg = msg;
         this.code = code;
         this.status = status;
         this.data = data || null;
@@ -18,7 +17,7 @@ export class CustomError extends Error {
 
     toJson() {
         return {
-            message: this.message,
+            msg: this.msg,
             code: this.code,
             status: this.status,
             data: this.data,

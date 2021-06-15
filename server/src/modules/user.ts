@@ -1,4 +1,4 @@
-import { NotFound } from "../middleware/error_handler";
+import { BadRequest, NotFound } from "../middleware/error_handler";
 import Database from "./database";
 
 const userDb = new Database("user");
@@ -28,7 +28,9 @@ export default class User {
         this.lastLogin = new Date().toDateString();
     }
 
-    get(username: string) {
+
+    static getUser(username: string) {
+
         const user = userDb.read(username);
 
         if (!user) throw new NotFound("No matching user found");
@@ -36,14 +38,18 @@ export default class User {
         return user;
     }
 
-    login() {
 
-        const user = this.get(this.username);
 
-        if (user.password !== this.password) throw "password is incorrect";
+    static login(username: string, pwd: string) {
 
-        return User.fromJson(user).toJson();
+        const user = User.getUser(username);
+
+        if (user.password !== pwd) throw new BadRequest("password is incorrect");
+
+        return user;
     }
+
+
 
     async register() {
         await userDb.create(this.username, this.toJson());
