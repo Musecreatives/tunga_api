@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { BadRequest, NotFound } from "../middleware/error_handler";
 
 
 export default class UserValidator {
@@ -12,16 +13,16 @@ export default class UserValidator {
 
         const { username, password }: { username: string, password: string } = req.body;
 
-        console.log(req.body)
+        console.log(req.body);
 
-        if (!username) throw "username is required"
+        if (!username) next(new NotFound("username is required"));
 
-        if (!password) throw "password is required"
+        if (!password) next(new BadRequest("password is required"));
 
-        if (password.length < 6) throw "password must not be less than six (6) characters"
+        if (password.length < 6) next(new NotFound("password must not be less than six (6) characters"));
 
 
-        next()
+        next();
     }
 
     static on_register(req: Request, res: Response, next: NextFunction) {
