@@ -4,6 +4,8 @@ const fs = FileSystem.promises;
 
 const dbLocation = process.cwd() + "/database/";
 
+
+
 export default class Database {
 
     private name: string;
@@ -50,6 +52,14 @@ export default class Database {
         const data = this.db.find((i) => i.key === key)
         if (!data) return null;
         return data.data;
+    }
+
+    readAll(length: number) {
+        return this.db.slice(0, 0 || this.db.length - 1).map(doc => doc.data);
+    }
+
+    readWhere(field: string, val: string) {
+        return this.db.filter((doc: any) => doc[field] === val).map(doc => doc.data);
     }
 
 

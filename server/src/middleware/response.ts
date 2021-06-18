@@ -6,7 +6,7 @@ type TCode = 200 | 201;
 
 export class SuccessResult extends CustomError {
 
-    constructor(msg = "Succuss", code: TCode, data: any) {
+    constructor(msg = "Succuss", code: TCode = 200, data: any) {
 
         super(msg, code, true, data)
     }

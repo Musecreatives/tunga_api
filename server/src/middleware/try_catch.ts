@@ -1,4 +1,3 @@
-import User from "../modules/user";
 
 
 export default async function _try(callback: Function) {
@@ -9,16 +8,16 @@ export default async function _try(callback: Function) {
         return [null, data]
 
     } catch (err) {
-
+        console.log("TRY ERROR=>", err)
         return [err, null];
     }
 
 }
 
-export function _trySync(callback: Function) {
+export function _trySync<T>(callback: Function) {
 
     try {
-        const data = callback();
+        const data: T = callback();
 
         return [null, data]
 

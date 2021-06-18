@@ -24,13 +24,18 @@ class Auth {
 
     const headers = { "Content-Type": "application/json" };
 
-    const result = await fetch(url, {
+    const { status, msg } = await fetch(url, {
       method: "POST",
       body: payload,
       headers,
     }).then((e) => e.json());
 
-    console.log(result);
+    alert(msg);
+
+    if (!status) return;
+
+    location.href = "./todo.html";
+
   }
 
   async register(firstName, lastName, username, email, password) {
