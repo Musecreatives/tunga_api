@@ -1,8 +1,23 @@
 import { BadRequest, NotFound } from "../middleware/error_handler";
-import Database from "./database";
+import { fDb } from "../middleware/firebase";
+import { hash } from "../middleware/security";
 
-const userDb = new Database("user");
+// const userDb = new Database("user");
 
+const userColl = fDb.collection("users");
+
+
+type TGender = "Male" | "Female";
+interface IUserDoc {
+    firstName: string;
+    lastName: string;
+    username: string;
+    gender?: TGender;
+    email: string;
+    password: string;
+    isEmailVerified: boolean;
+    lastLogin: number;
+}
 
 
 export default class User {
@@ -23,28 +38,43 @@ export default class User {
         this.lastName = lastName;
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.password = hash(password + username || "");
         this.isEmailVerified = false;
         this.lastLogin = new Date().toDateString();
     }
 
+    static compare(plainPwd: string, hashedPwd: string): boolean {
 
-    static getUser(username: string) {
+        return (hash(plainPwd, "sha256") === hashedPwd)
+    }
 
-        const user = userDb.read(username);
+    static async getUser(username: string) {
 
-        if (!user) throw new NotFound("No matching user found");
+        try {
+            const docId = hash(username, 'md5');
 
-        return user;
+            const user = await userColl.doc(docId).get();
+
+
+            if (!user.exists) throw new NotFound("No matching user found");
+
+            return User.fromJson(user.data());
+
+        } catch (error) {
+
+            throw new NotFound("No matching user found");
+
+        }
+
     }
 
 
 
-    static login(username: string, pwd: string) {
+    static async login(username: string, pwd: string) {
 
-        const user = User.getUser(username);
+        const user = await User.getUser(username);
 
-        if (user.password !== pwd) throw new BadRequest("password is incorrect");
+        if (!User.compare(pwd + username, user.password)) throw new BadRequest("password is incorrect");
 
         return user;
     }
@@ -52,20 +82,27 @@ export default class User {
 
 
     async register() {
-        await userDb.create(this.username, this.toJson());
+        // await userDb.create(this.username, this.toJson());
+        console.log(this.toJson());
+
+        const docId = hash(this.username, 'sha256');
+
+        await userColl.doc(docId).set(this.toJson());
+
+
         return this.toJson();
     }
 
 
-    toJson() {
+    toJson(): IUserDoc {
         return {
-            firstName: this.firstName,
+            firstName: String(this.firstName),
             lastName: this.lastName,
             username: this.username,
             email: this.email,
             password: this.password,
-            isEmailVerified: this.isEmailVerified,
-            lastLogin: this.lastLogin
+            isEmailVerified: this.isEmailVerified ?? false,
+            lastLogin: Number(this.lastLogin ?? "")
         }
     }
 
@@ -75,11 +112,11 @@ export default class User {
 
         user.firstName = json['firstName'];
         user.lastName = json['lastName'];
-        user.password = json['password'];
+        user.password = hash(json['password'] || "");
         user.username = String(json['username']).toLowerCase();
         user.email = String(json['email']).toLowerCase();
-        user.isEmailVerified = json['isEmailVerified'];
-        user.lastLogin = json['lastLogin'];
+        user.isEmailVerified = json['isEmailVerified'] ?? false;
+        user.lastLogin = json['lastLogin'] ?? "";
 
         return user;
     }

@@ -1,9 +1,13 @@
+import { CustomError } from "./error_handler";
 
 
-export default async function _try(callback: Function) {
+type IData<T> = [CustomError | null, T | null];
+
+
+export default async function _try<T>(callback: Function): Promise<IData<T>> {
 
     try {
-        const data = await callback();
+        const data: T = await callback();
 
         return [null, data]
 
