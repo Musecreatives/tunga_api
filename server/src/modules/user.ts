@@ -17,7 +17,7 @@ interface IUserDoc {
     password: string;
     isEmailVerified: boolean;
     lastLogin: number;
-}
+}  
 
 
 export default class User {
